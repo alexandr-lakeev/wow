@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  server:
+    container_name: server
+    image: world-of-wisdom-server:develop
+    ports:
+      - "8888:8888"
+    env_file:
+      - ../.env
+    restart: "on-failure"
+    networks:
+      - wow
+
+networks:
+  wow:
+    external:
+      name: wow
