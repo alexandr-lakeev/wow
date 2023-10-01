@@ -11,8 +11,9 @@ Design and implement “Word of Wisdom” tcp server.
 ## TODO
 
 * Add unit and integration tests
-* Add Configuration for server and client
-* Add description to README
+* Add configuration for the server and the client
+* Improve logging
+* Add more description to README
 
 ## Run
 
@@ -47,6 +48,8 @@ make lint
 4. The Server checks the `solution` and send a quote: `📖 Believe you can and you're halfway there`
 5. Client receives the quote.
 6. Done.
+
+![Screenshot](example.png)
 
 #### 2. Messages
 
