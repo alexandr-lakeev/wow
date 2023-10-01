@@ -55,6 +55,7 @@ func (s *server) Handle(ctx context.Context, transport io.ReadWriter) error {
 }
 
 func (s *server) handleHello(transport io.ReadWriter) (*dto.Challenge, error) {
+	// todo pass the resource from the client or use its ip address?
 	challenge := s.hashcash.GetChallenge("todo")
 
 	if err := message.SendServerHelloMsg(transport, challenge); err != nil {

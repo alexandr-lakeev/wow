@@ -10,6 +10,7 @@ Design and implement “Word of Wisdom” tcp server.
 
 ## TODO
 
+* Pass the resource from the client or use its ip address
 * Add unit and integration tests
 * Add configuration for the server and the client
 * Improve logging
