@@ -4,19 +4,24 @@ import (
 	"context"
 	"io"
 
-	proofOfWork "github.com/alexandr-lakeev/wow.git/internal/pkg/proof_of_work"
-	"github.com/alexandr-lakeev/wow.git/internal/pkg/proof_of_work/dto"
-	"github.com/alexandr-lakeev/wow.git/internal/pkg/protocol"
-	"github.com/alexandr-lakeev/wow.git/internal/pkg/protocol/emoji/message"
+	proofOfWork "github.com/alexandr-lakeev/wow/internal/pkg/proof_of_work"
+	"github.com/alexandr-lakeev/wow/internal/pkg/proof_of_work/dto"
+	"github.com/alexandr-lakeev/wow/internal/pkg/protocol"
+	"github.com/alexandr-lakeev/wow/internal/pkg/protocol/emoji/message"
+	"github.com/alexandr-lakeev/wow/internal/pkg/quotes"
 )
 
 type server struct {
 	hashcash proofOfWork.Verifier
+	quotes   *quotes.Quotes
+	logger   protocol.Logger
 }
 
-func NewServer(hashcash proofOfWork.Hashcash) *server {
+func NewServer(hashcash proofOfWork.Verifier, quotes *quotes.Quotes, logger protocol.Logger) *server {
 	return &server{
 		hashcash: hashcash,
+		quotes:   quotes,
+		logger:   logger,
 	}
 }
 
@@ -29,6 +34,8 @@ func (s *server) Handle(ctx context.Context, transport io.ReadWriter) error {
 		if err != nil {
 			return err
 		}
+
+		s.logger.Info("I received: " + msg)
 
 		switch {
 		case message.IsClientHelloMsg(msg):
@@ -70,9 +77,13 @@ func (s *server) handleSolve(transport io.ReadWriter, challenge *dto.Challenge, 
 	challenge.SetCounter(counter)
 
 	if s.hashcash.Verify(challenge) {
-		if err := message.SendMsg(transport, "good"); err != nil {
+		s.logger.Info("I checked solution")
+
+		if err := message.SendServerQuoteMsg(transport, s.quotes.Get()); err != nil {
 			return err
 		}
+
+		return nil
 	}
 
 	if err := message.SendServerWrongSolutionMsg(transport); err != nil {

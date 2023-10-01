@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/alexandr-lakeev/wow.git/internal/pkg/proof_of_work/dto"
+	"github.com/alexandr-lakeev/wow/internal/pkg/proof_of_work/dto"
 )
 
 type hashcash struct {

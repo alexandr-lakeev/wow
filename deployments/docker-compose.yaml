@@ -20,6 +20,8 @@ services:
     restart: "on-failure"
     networks:
       - wow
+    depends_on:
+      - server
 
 networks:
   wow:

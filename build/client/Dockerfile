@@ -19,4 +19,5 @@ COPY --from=build ${BIN_FILE} ${BIN_FILE}
 ENV CONFIG_FILE /etc/world-of-wisdom/config.yaml
 COPY ./configs/config.yaml ${CONFIG_FILE}
 
+RUN sleep 1
 CMD ${BIN_FILE} -config ${CONFIG_FILE}

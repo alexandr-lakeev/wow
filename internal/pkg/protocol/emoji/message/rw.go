@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"io"
 	"strings"
+	"time"
 )
 
 func ReceiveMsg(r io.Reader) (string, error) {
@@ -18,6 +19,8 @@ func ReceiveMsg(r io.Reader) (string, error) {
 }
 
 func SendMsg(w io.Writer, msg ...string) error {
+	time.Sleep(10 * time.Millisecond)
+
 	_, err := io.WriteString(w, strings.Join(msg, " ")+"\n")
 	if err != nil {
 		return err

@@ -4,12 +4,11 @@ import (
 	"context"
 	"net"
 
-	"github.com/alexandr-lakeev/wow.git/internal/pkg/protocol"
+	"github.com/alexandr-lakeev/wow/internal/pkg/protocol"
 )
 
 type server struct {
 	protocol protocol.Server
-	port     string
 }
 
 func New(protocol protocol.Server) *server {

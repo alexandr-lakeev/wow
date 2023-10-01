@@ -3,7 +3,7 @@ package proof_of_work
 import (
 	"time"
 
-	"github.com/alexandr-lakeev/wow.git/internal/pkg/proof_of_work/dto"
+	"github.com/alexandr-lakeev/wow/internal/pkg/proof_of_work/dto"
 )
 
 //go:generate mockery --with-expecter --name Hasher
@@ -21,6 +21,8 @@ type Hashcash interface {
 type Solver interface {
 	Solve(challenge *dto.Challenge) (int, error)
 }
+
+//go:generate mockery --with-expecter --name Verifier
 
 type Verifier interface {
 	GetChallenge(resource string) *dto.Challenge

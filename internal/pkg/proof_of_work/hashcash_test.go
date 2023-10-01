@@ -5,8 +5,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/alexandr-lakeev/wow.git/internal/pkg/proof_of_work/dto"
-	"github.com/alexandr-lakeev/wow.git/internal/pkg/proof_of_work/mocks"
+	"github.com/alexandr-lakeev/wow/internal/pkg/proof_of_work/dto"
+	"github.com/alexandr-lakeev/wow/internal/pkg/proof_of_work/mocks"
 )
 
 func TestHashcash_Solve(t *testing.T) {

@@ -4,14 +4,18 @@ import (
 	"context"
 	"fmt"
 	"net"
+
+	"github.com/alexandr-lakeev/wow/internal/pkg/protocol"
 )
 
 type client struct {
-	host string
+	protocol protocol.Client
 }
 
-func New() *client {
-	return &client{}
+func New(protocol protocol.Client) *client {
+	return &client{
+		protocol: protocol,
+	}
 }
 
 func (c *client) Run(ctx context.Context, address string) error {
@@ -19,9 +23,15 @@ func (c *client) Run(ctx context.Context, address string) error {
 	if err != nil {
 		return err
 	}
-
-	fmt.Println("connected to", address)
 	defer conn.Close()
+
+	quote, err := c.protocol.GetQuote(ctx, conn)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	//
+	_ = quote
 
 	return nil
 }
