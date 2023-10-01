@@ -51,12 +51,12 @@ func (h *hashcash) Solve(challenge *dto.Challenge) (int, error) {
 
 // Verify verifies that challenge was solved correctly
 func (h *hashcash) Verify(challenge *dto.Challenge) bool {
-	return h.verifyHash(h.hasher.Hash(challenge.Bytes()))
+	return h.verifyHash(h.hasher.Hash(challenge.Bytes()), challenge.GetComplexity())
 }
 
-func (h *hashcash) verifyHash(hash []byte) bool {
+func (h *hashcash) verifyHash(hash []byte, complexity int) bool {
 	str := hex.EncodeToString(hash)
-	for _, val := range str[:h.complexity] {
+	for _, val := range str[:complexity] {
 		if string(val) != h.prefix {
 			return false
 		}

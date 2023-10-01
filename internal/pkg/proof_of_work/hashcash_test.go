@@ -37,18 +37,17 @@ func TestHashcash_Solve(t *testing.T) {
 				hasher: func() Hasher {
 					mock := mocks.Hasher{}
 
-					mock.EXPECT().Hash([]byte("ver1:2:1:rand:test:1")).
+					mock.EXPECT().Hash([]byte("ver1:2:1:rand:test:MQ==")).
 						Return([]byte{255, 255, 255, 255})
 
-					mock.EXPECT().Hash([]byte("ver1:2:1:rand:test:2")).
+					mock.EXPECT().Hash([]byte("ver1:2:1:rand:test:Mg==")).
 						Return([]byte{0, 255, 255, 255})
 
 					return &mock
 				}(),
-				version:    "ver1",
-				complexity: 2,
-				prefix:     "0",
-				max:        3,
+				version: "ver1",
+				prefix:  "0",
+				max:     3,
 			},
 			args: args{
 				challenge: testChallenge,
@@ -61,15 +60,14 @@ func TestHashcash_Solve(t *testing.T) {
 				hasher: func() Hasher {
 					mock := mocks.Hasher{}
 
-					mock.EXPECT().Hash([]byte("ver1:2:1:rand:test:1")).
+					mock.EXPECT().Hash([]byte("ver1:2:1:rand:test:MQ==")).
 						Return([]byte{255, 255, 255, 255})
 
 					return &mock
 				}(),
-				version:    "ver1",
-				complexity: 2,
-				prefix:     "0",
-				max:        2,
+				version: "ver1",
+				prefix:  "0",
+				max:     2,
 			},
 			args: args{
 				challenge: func() *dto.Challenge {

@@ -1,6 +1,7 @@
 package emoji
 
 import (
+	"context"
 	"io"
 
 	proofOfWork "github.com/alexandr-lakeev/wow.git/internal/pkg/proof_of_work"
@@ -19,8 +20,8 @@ func NewServer(hashcash proofOfWork.Hashcash) *server {
 	}
 }
 
-// Handle handles messages from clients via transport
-func (s *server) Handle(transport io.ReadWriter) error {
+// Handle handles messages from clients
+func (s *server) Handle(ctx context.Context, transport io.ReadWriter) error {
 	var challenge *dto.Challenge
 
 	for {

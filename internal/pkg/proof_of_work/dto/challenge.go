@@ -1,6 +1,7 @@
 package dto
 
 import (
+	"encoding/base64"
 	"strconv"
 	"strings"
 )
@@ -32,7 +33,7 @@ func (c *Challenge) String() string {
 		strconv.FormatInt(c.time, 10),
 		c.rand,
 		c.resource,
-		strconv.Itoa(c.counter),
+		base64.StdEncoding.EncodeToString([]byte(strconv.Itoa(c.counter))),
 	}, ":")
 }
 
@@ -50,4 +51,8 @@ func (c *Challenge) SetCounter(counter int) {
 
 func (c *Challenge) GetCounter() int {
 	return c.counter
+}
+
+func (c *Challenge) GetComplexity() int {
+	return c.complexity
 }

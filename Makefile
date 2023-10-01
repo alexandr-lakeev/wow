@@ -1,12 +1,21 @@
-DOCKER_IMG="world-of-wisdom-server:develop"
+SERVER_DOCKER_IMG="world-of-wisdom-server:develop"
+CLIENT_DOCKER_IMG="world-of-wisdom-client:develop"
 
 LDFLAGS := -X main.release="develop" -X main.buildDate=$(shell date -u +%Y-%m-%dT%H:%M:%S) -X main.gitHash=$(GIT_HASH)
 
-build-docker-dev:
+build-dev: build-server-dev build-client-dev
+
+build-server-dev:
 	docker build \
 		--build-arg=LDFLAGS="$(LDFLAGS)" \
-		-t $(DOCKER_IMG) \
-		-f build/Dockerfile .
+		-t $(SERVER_DOCKER_IMG) \
+		-f build/server/Dockerfile .
+
+build-client-dev:
+	docker build \
+		--build-arg=LDFLAGS="$(LDFLAGS)" \
+		-t $(CLIENT_DOCKER_IMG) \
+		-f build/client/Dockerfile .
 
 create-network:
 	docker network create wow || true

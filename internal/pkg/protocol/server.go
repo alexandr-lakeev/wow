@@ -1,7 +1,10 @@
 package protocol
 
-import "io"
+import (
+	"context"
+	"io"
+)
 
 type Server interface {
-	Handle(conn io.ReadWriter) error
+	Handle(ctx context.Context, conn io.ReadWriter) error
 }

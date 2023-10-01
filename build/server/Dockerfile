@@ -1,10 +1,10 @@
 FROM golang:1.21.1 as build
 
-ENV BIN_FILE /opt/world-of-wisdom/wow
+ENV BIN_FILE /opt/world-of-wisdom/server
 ENV CODE_DIR /go/src/
 
 WORKDIR ${CODE_DIR}
-COPY . ${CODE_DIR}
+COPY .. ${CODE_DIR}
 
 ARG LDFLAGS
 RUN CGO_ENABLED=0 go build \
@@ -13,7 +13,7 @@ RUN CGO_ENABLED=0 go build \
 
 FROM alpine:3.9
 
-ENV BIN_FILE /opt/world-of-wisdom/wow
+ENV BIN_FILE /opt/world-of-wisdom/server
 COPY --from=build ${BIN_FILE} ${BIN_FILE}
 
 ENV CONFIG_FILE /etc/world-of-wisdom/config.yaml

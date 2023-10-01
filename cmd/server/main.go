@@ -3,13 +3,13 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/alexandr-lakeev/wow.git/internal/pkg/protocol/emoji"
 	"math"
 	"os/signal"
 	"syscall"
 
 	proofOfWork "github.com/alexandr-lakeev/wow.git/internal/pkg/proof_of_work"
 	"github.com/alexandr-lakeev/wow.git/internal/pkg/proof_of_work/hasher"
+	"github.com/alexandr-lakeev/wow.git/internal/pkg/protocol/emoji"
 	tcpServer "github.com/alexandr-lakeev/wow.git/internal/server"
 )
 

@@ -12,6 +12,15 @@ services:
     networks:
       - wow
 
+  client:
+    container_name: client
+    image: world-of-wisdom-client:develop
+    env_file:
+      - ../.env
+    restart: "on-failure"
+    networks:
+      - wow
+
 networks:
   wow:
     external:

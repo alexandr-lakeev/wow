@@ -38,7 +38,7 @@ func (s *server) Run(ctx context.Context, port string) error {
 func (s *server) handle(ctx context.Context, conn net.Conn) {
 	defer conn.Close()
 
-	if err := s.protocol.Handle(conn); err != nil {
+	if err := s.protocol.Handle(ctx, conn); err != nil {
 		return
 	}
 }
